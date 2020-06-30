@@ -1,0 +1,49 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: cloud-payment-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf-8&useSSL=false&useUnicode=true&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    # Hikari是Spring Boot 2.0之后默认整合的数据库连接池，比druid更快的数据库连接池
+    hikari:
+      connection-test-query: SELECT 'x'
+      pool-name: payment-hikari-pool
+      connection-timeout: 5000
+      minimum-idle: 20
+      idle-timeout: 50000
+      max-lifetime: 540000
+      initialization-fail-timeout: 10000
+      maximum-pool-size: 50
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+  devtools:
+    restart:
+      log-condition-evaluation-delta: false
+  output:
+    ansi:
+      enabled: detect
+
+mybatis-plus:
+  global-config:
+    banner: false
+  configuration:
+    cache-enabled: true
+    map-underscore-to-camel-case: true
+    # 微服务架构中需要关闭一级缓存
+    localCacheScope: STATEMENT
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.atguigu.cloud.entity
+
+
+logging:
+  level:
+    org.apache.ibatis: warn
