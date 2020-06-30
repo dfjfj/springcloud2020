@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.BeanUtils;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -80,21 +79,4 @@ public class BeanConvertUtil {
         }
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public static Object getPropertyValue(Object src, String property) {
-        Object result = null;
-        try {
-            Class cls = src.getClass();
-            property = property.substring(0, 1).toUpperCase()
-                    + property.substring(1, property.length());
-            Method method = cls.getMethod("get" + property, null);
-
-            if (method != null) {
-                result = method.invoke(src, null);
-            }
-
-        } catch (Exception e) {
-        }
-        return result;
-    }
 }

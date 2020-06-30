@@ -3,6 +3,7 @@ package com.atguigu.cloud.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * code: 响应状态码
@@ -16,6 +17,7 @@ import lombok.Data;
  */
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public final class Response<T> {
 

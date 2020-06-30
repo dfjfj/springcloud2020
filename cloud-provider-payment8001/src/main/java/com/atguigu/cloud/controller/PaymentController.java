@@ -21,7 +21,7 @@ public class PaymentController {
 
     @GetMapping("/test")
     public String testConnection() {
-        return "connect success!";
+        return "connect payment-service success!";
     }
 
     @GetMapping("/{id}")
