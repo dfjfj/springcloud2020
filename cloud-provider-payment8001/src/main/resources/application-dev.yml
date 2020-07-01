@@ -52,8 +52,11 @@ eureka:
     ip-address: ${spring.cloud.client.ip-address}
     instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}:${server.port}
   client:
+    # 开启健康检查, 在心跳包中会包含当前应用的健康数据(由Spring Boot Actuator提供)
+    healthcheck:
+      enabled: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka-server8762.com:8762/eureka/,http://eureka-server8761.com:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
 

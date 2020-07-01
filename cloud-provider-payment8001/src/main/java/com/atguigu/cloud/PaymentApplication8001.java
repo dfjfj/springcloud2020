@@ -14,10 +14,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @MapperScan("com.atguigu.cloud.dao.mapper")
 @SpringBootApplication
 @Slf4j
-public class PaymentApplication {
+public class PaymentApplication8001 {
 
     public static void main(String[] args) {
-        SpringApplication.run(PaymentApplication.class, args);
+        SpringApplication.run(PaymentApplication8001.class, args);
         log.info("payment application started...");
     }
 }

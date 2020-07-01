@@ -8,14 +8,21 @@ spring:
     inetutils:
       # 设置读取网卡信息时间 默认1秒太短
       timeout-seconds: 10
+    # 关闭ribbon负载均衡实现
+    loadbalancer:
+      ribbon:
+        enabled: false
 eureka:
   instance:
     prefer-ip-address: true
-    ip-address: ${spring.cloud.client.ip-address}
+    #ip-address: ${spring.cloud.client.ip-address}
     instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}:${server.port}
   client:
+    # 开启健康检查, 在心跳包中会包含当前应用的健康数据(由Spring Boot Actuator提供)
+    healthcheck:
+      enabled: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka-server8762.com:8762/eureka/,http://eureka-server8761.com:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
 
