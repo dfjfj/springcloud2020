@@ -1,6 +1,7 @@
 package com.atguigu.cloud.controller;
 
 
+import com.atguigu.cloud.api.PaymentFeignClient;
 import com.atguigu.cloud.api.dto.PaymentDTO;
 import com.atguigu.cloud.common.Response;
 import com.atguigu.cloud.controller.vo.PaymentVO;
@@ -25,6 +26,8 @@ public class OrderController {
     private WebClient.Builder webClientBuilder;
     @Autowired
     private DiscoveryClient discoveryClient;
+    @Autowired
+    private PaymentFeignClient paymentFeignClient;
 
     @GetMapping("/test")
     public String testConnection() {
@@ -59,5 +62,15 @@ public class OrderController {
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<Response<PaymentVO>>() {
                 }).block();
+    }
+
+    @GetMapping("/by_feign/{id}")
+    public Response<PaymentVO> getPaymentInfoByFeign(@PathVariable("id") Long id) {
+        return paymentFeignClient.getPaymentById(id);
+    }
+
+    @PostMapping("/by_feign/create_payment")
+    public Response<PaymentVO> createPaymentByFeign(@RequestBody PaymentDTO payment) {
+        return paymentFeignClient.generatePaymentInfo(payment);
     }
 }
