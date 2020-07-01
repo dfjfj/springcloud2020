@@ -5,8 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-
+/**
+ * EnableDiscoveryClient 可以不标注此标签,系统会自动根据classpath上的jar包依赖推断
+ */
+@EnableDiscoveryClient
 @MapperScan("com.atguigu.cloud.dao.mapper")
 @SpringBootApplication
 @Slf4j

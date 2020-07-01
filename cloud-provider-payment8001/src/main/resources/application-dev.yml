@@ -1,6 +1,5 @@
 server:
   port: 8001
-
 spring:
   application:
     name: cloud-payment-service
@@ -24,13 +23,13 @@ spring:
     time-zone: GMT+8
   mvc:
     date-format: yyyy-MM-dd HH:mm:ss
-  devtools:
-    restart:
-      log-condition-evaluation-delta: false
   output:
     ansi:
       enabled: detect
-
+  cloud:
+    inetutils:
+      # 设置读取网卡信息时间 默认1秒太短
+      timeout-seconds: 10
 mybatis-plus:
   global-config:
     banner: false
@@ -47,3 +46,15 @@ mybatis-plus:
 logging:
   level:
     org.apache.ibatis: warn
+eureka:
+  instance:
+    prefer-ip-address: true
+    ip-address: ${spring.cloud.client.ip-address}
+    instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+
