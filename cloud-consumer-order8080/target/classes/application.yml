@@ -25,4 +25,32 @@ eureka:
       defaultZone: http://eureka-server8762.com:8762/eureka/,http://eureka-server8761.com:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
+# feign默认设置
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+# 要使用feign的日志功能,必须把feignClient接口所在包的日志级别设置为debug
+logging:
+  level:
+    com.atguigu.cloud.api:  debug
 
+# 端点监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  # 对应不带任何参数的获取数据的请求, 端点会自动缓存响应, 可以使用如下方式配置缓存时间
+  endpoint:
+    beans:
+      cache:
+        time-to-live: 10s
+    health:
+      show-details: always
+      show-components: always
+# 打开debug模式, 查看自动配置类失效原因
+debug: true
