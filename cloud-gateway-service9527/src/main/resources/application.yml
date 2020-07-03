@@ -1,0 +1,71 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateway-service
+  cloud:
+    inetutils:
+      # 设置读取网卡信息时间 默认1秒太短
+      timeout-seconds: 10
+    # 关闭ribbon负载均衡实现
+    loadbalancer:
+      ribbon:
+        enabled: false
+    gateway:
+      default-filters:
+        # 令牌桶版本限流器
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 10
+            redis-rate-limiter.burstCapacity: 20
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      httpclient:
+        connect-timeout: 5000
+        response-timeout: 10000
+        wiretap: true
+        pool:
+          name: gateway-proxy
+      httpserver:
+        wiretap: true
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+  redis:
+    host: 10.9.251.238
+    port: 6379
+    database: 0
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  level:
+    redisratelimiter: debug
+    reactor:
+      netty: debug
+    org:
+      springframework:
+        cloud:
+          gateway: debug
+debug: false
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    #ip-address: ${spring.cloud.client.ip-address}
+    instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}:${server.port}
+  client:
+    # 开启健康检查, 在心跳包中会包含当前应用的健康数据(由Spring Boot Actuator提供)
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://eureka-server8762.com:8762/eureka/,http://eureka-server8761.com:8761/eureka/
+    register-with-eureka: false
+    fetch-registry: true
