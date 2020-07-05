@@ -1,5 +1,5 @@
 server:
-  port: 9527
+  port: 9528
 
 spring:
   application:
@@ -36,6 +36,7 @@ spring:
         wiretap: false
       globalcors:
         add-to-simple-url-handler-mapping: true
+# 注意: 限流过滤器在gateway集群模式中要配置为同一个库
   redis:
     host: 10.9.251.238
     port: 6379

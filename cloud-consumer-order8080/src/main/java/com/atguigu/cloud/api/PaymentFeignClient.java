@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "CLOUD-PAYMENT-SERVICE", path = "/payment", configuration = FeignRequestInterceptor.class)
+@FeignClient(name = "CLOUD-GATEWAY-SERVICE", path = "/cloud-payment-service/payment", configuration = FeignRequestInterceptor.class, contextId = "gateway-payment-service")
 public interface PaymentFeignClient {
 
     @GetMapping("/{id}")

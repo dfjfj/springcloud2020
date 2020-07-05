@@ -12,6 +12,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class GatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);
-        log.info("### GatewayApplication: 9527 started...");
+        log.info("### GatewayApplication: 9528 started...");
     }
 }
