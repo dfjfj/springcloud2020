@@ -59,5 +59,10 @@ eureka:
       defaultZone: http://eureka-server8762.com:8762/eureka/,http://eureka-server8761.com:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 

@@ -1,6 +1,8 @@
 server:
   port: 8080
-
+  tomcat:
+    mbeanregistry:
+      enabled: true
 spring:
   application:
     name: cloud-order-service
@@ -39,11 +41,19 @@ logging:
     com.atguigu.cloud.api:  debug
 
 # 端点监控
+
 management:
+  metrics:
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
   endpoints:
     web:
       exposure:
         include: "*"
+      base-path: /actuator
   # 对应不带任何参数的获取数据的请求, 端点会自动缓存响应, 可以使用如下方式配置缓存时间
   endpoint:
     beans:
@@ -52,5 +62,8 @@ management:
     health:
       show-details: always
       show-components: always
+  # 为执行器配置与应用不同的port 适用于内网监控. tomcat可以同时监听多个端口
+  server:
+    port: 8081
 # 打开debug模式, 查看自动配置类失效原因
 debug: true
