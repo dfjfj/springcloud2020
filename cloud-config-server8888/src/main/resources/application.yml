@@ -1,0 +1,29 @@
+server:
+  port: 8888
+
+spring:
+  # 在这里启用jdbc后端存储
+  profiles:
+    active: jdbc
+  application:
+    name: cloud-config-server
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf-8&useSSL=false&useUnicode=true&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    # Hikari是Spring Boot 2.0之后默认整合的数据库连接池，比druid更快的数据库连接池
+    hikari:
+      connection-test-query: SELECT 'x'
+      pool-name: config-server-hikari-pool
+      connection-timeout: 5000
+      minimum-idle: 20
+      idle-timeout: 50000
+      max-lifetime: 540000
+      initialization-fail-timeout: 10000
+      maximum-pool-size: 50
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

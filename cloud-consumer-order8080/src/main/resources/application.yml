@@ -4,8 +4,8 @@ server:
     mbeanregistry:
       enabled: true
 spring:
-  application:
-    name: cloud-order-service
+  #application:
+  #  name: cloud-order-service
   cloud:
     inetutils:
       # 设置读取网卡信息时间 默认1秒太短
@@ -52,6 +52,9 @@ management:
   endpoints:
     web:
       exposure:
+        # 使用spring-cloud-config-server时, 要启用env和refresh端点, 用于刷新@ConfigurationProperties和@RefreshScope
+        # 使用spring-cloud-bus时的机制暂不清楚, 应该和EnvironmentChangeEvent有关,
+        # ConfigurationPropertiesRebinder  LoggingRebinder RefreshScope类中的refreshAll()方法
         include: "*"
       base-path: /actuator
   # 对应不带任何参数的获取数据的请求, 端点会自动缓存响应, 可以使用如下方式配置缓存时间
@@ -63,7 +66,7 @@ management:
       show-details: always
       show-components: always
   # 为执行器配置与应用不同的port 适用于内网监控. tomcat可以同时监听多个端口
-  server:
-    port: 8081
+#  server:
+#    port: 8081
 # 打开debug模式, 查看自动配置类失效原因
 debug: true

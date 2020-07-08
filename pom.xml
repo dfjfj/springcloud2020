@@ -16,6 +16,7 @@
         <module>cloud-provider-payment8002</module>
         <module>cloud-gateway-service9527</module>
         <module>cloud-gateway-service9528</module>
+        <module>cloud-config-server8888</module>
     </modules>
     <packaging>pom</packaging>
 

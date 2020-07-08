@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 
 @RequestMapping("/order")
@@ -28,10 +31,25 @@ public class OrderController {
     private DiscoveryClient discoveryClient;
     @Autowired
     private PaymentFeignClient paymentFeignClient;
+    @Autowired
+    private Environment environment;
 
     @GetMapping("/test")
     public String testConnection() {
         return "connect order-service success!";
+    }
+
+    /**
+     * 试验: 尝试从配置中心获取属性值
+     * @param key 配置中心存储的对应配置文件信息
+     * @return response with value or fail message
+     */
+    @GetMapping("/env/{key}")
+    public Response<String> getValueFromEnvironmentWithKey(@PathVariable("key") String key) {
+        Assert.notNull(environment, "environment must not be null!");
+        String[] activeProfiles = environment.getActiveProfiles();
+        return environment.containsProperty(key) ? Response.success(environment.getProperty(key)) : Response.fail(50001, "Cannot get the property from environment where key is " + key +
+                "! The activeProfiles is " + Arrays.toString(activeProfiles));
     }
 
     @GetMapping("/discovery/serverList")

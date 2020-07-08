@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: cloud-order-service
+  cloud:
+    config:
+      label: 1.0.0
+      name: ${spring.application.name}
+      profile: default
+      uri: http://localhost:8888
+      # 由于默认使用uri获取配置服务器地址,因此,如果要开启注册中心查找配置服务器,需要开启discovery
+      # 选择uri模块可以让config-client灵活使用, 不需要统一注册在一个注册中心
+#      discovery:
+#        enabled: true
+#        service-id: cloud-config-server
+      request-read-timeout: 10000
+      request-connect-timeout: 5000
