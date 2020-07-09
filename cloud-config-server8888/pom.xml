@@ -15,20 +15,22 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
-        <!-- 用于webhooks触发bus广播更新事件 -->
+        <!-- 用于webhooks触发bus广播更新事件 和bus共存-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-monitor</artifactId>
+        </dependency>
+        <!--  The bus is like a distributed actuator for a Spring Boot application that is scaled out.
+         However, it can also be used as a communication channel between apps.  -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-bus-amqp</artifactId>-->
-<!--        </dependency>-->
-        <!-- 使用JDBC Backend存储配置文件并获取
+        <!-- 使用JDBC Backend存储配置文件并获取 可以通过修改jdbc.sql更改表名和列名
          The database needs to have a table called PROPERTIES with
          columns called APPLICATION, PROFILE, and LABEL , plus KEY and VALUE
          for the key and value pairs in Properties style.

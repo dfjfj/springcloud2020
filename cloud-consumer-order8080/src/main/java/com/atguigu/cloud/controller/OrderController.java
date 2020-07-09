@@ -41,6 +41,8 @@ public class OrderController {
 
     /**
      * 试验: 尝试从配置中心获取属性值
+     * 结论: 如果更新了远程配置信息, 则需要手动调用 post /actuator/refresh端点, 抓取更新配置
+     * warn: 有点遗憾的是: 对于list和map结构, 无法正确解析; 例如: 存入一个test-key[0]和test-key[1],识别后无法合并为test-key
      * @param key 配置中心存储的对应配置文件信息
      * @return response with value or fail message
      */

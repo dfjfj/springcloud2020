@@ -2,6 +2,11 @@ server:
   port: 8888
 
 spring:
+  rabbitmq:
+    host: 192.168.175.200
+    port: 5673
+    username: guest
+    password: guest
   # 在这里启用jdbc后端存储
   profiles:
     active: jdbc
@@ -22,8 +27,21 @@ spring:
       max-lifetime: 540000
       initialization-fail-timeout: 10000
       maximum-pool-size: 50
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: 'SELECT `KEY`, `VALUE` from `PROPERTIES` where `APPLICATION`=? and `PROFILE`=? and `LABEL`=?'
+    # 追踪总线事件
+    # 由于TraceListener的2个监听方法还未实现,因此暂不可用
+    bus:
+      trace:
+        enabled: true
+  # POST /actuator/bus-refresh 用于广播配置文件改变事件, 受影响的消费者将整体调用/actuator/refresh端点
+  # 后面还可以接一个路径变量, 该变量将作为指定刷新的bus的bus.id, 默认情况下, bus.id=${spring.application.name}:{server.port}(没有其他参数存在的情况下)
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+debug: true

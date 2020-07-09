@@ -4,6 +4,11 @@ server:
     mbeanregistry:
       enabled: true
 spring:
+  rabbitmq:
+    host: 192.168.175.200
+    port: 5673
+    username: guest
+    password: guest
   #application:
   #  name: cloud-order-service
   cloud:
@@ -52,8 +57,10 @@ management:
   endpoints:
     web:
       exposure:
-        # 使用spring-cloud-config-server时, 要启用env和refresh端点, 用于刷新@ConfigurationProperties和@RefreshScope
-        # 使用spring-cloud-bus时的机制暂不清楚, 应该和EnvironmentChangeEvent有关,
+        # 使用spring-cloud-config-server时, 请启用refresh端点, 用于刷新@ConfigurationProperties和@RefreshScope
+        # org.springframework.cloud.endpoint.RefreshEndpoint.refresh  POST /actuator/refresh 该端点会重新绑定@ConfigurationProperties和刷新@RefreshScope标注的域中的对象
+        # 启用 POST /actuator/env (有请求体)端点:  用于手动添加环境变量
+        # 使用spring-cloud-bus时的机制同上, 会调用所有相关应用的refresh端点
         # ConfigurationPropertiesRebinder  LoggingRebinder RefreshScope类中的refreshAll()方法
         include: "*"
       base-path: /actuator

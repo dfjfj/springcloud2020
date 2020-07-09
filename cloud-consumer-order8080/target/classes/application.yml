@@ -4,8 +4,13 @@ server:
     mbeanregistry:
       enabled: true
 spring:
-  application:
-    name: cloud-order-service
+  rabbitmq:
+    host: 192.168.175.200
+    port: 5673
+    username: guest
+    password: guest
+  #application:
+  #  name: cloud-order-service
   cloud:
     inetutils:
       # 设置读取网卡信息时间 默认1秒太短
@@ -52,6 +57,11 @@ management:
   endpoints:
     web:
       exposure:
+        # 使用spring-cloud-config-server时, 请启用refresh端点, 用于刷新@ConfigurationProperties和@RefreshScope
+        # org.springframework.cloud.endpoint.RefreshEndpoint.refresh  POST /actuator/refresh 该端点会重新绑定@ConfigurationProperties和刷新@RefreshScope标注的域中的对象
+        # 启用 POST /actuator/env (有请求体)端点:  用于手动添加环境变量
+        # 使用spring-cloud-bus时的机制同上, 会调用所有相关应用的refresh端点
+        # ConfigurationPropertiesRebinder  LoggingRebinder RefreshScope类中的refreshAll()方法
         include: "*"
       base-path: /actuator
   # 对应不带任何参数的获取数据的请求, 端点会自动缓存响应, 可以使用如下方式配置缓存时间
@@ -63,7 +73,7 @@ management:
       show-details: always
       show-components: always
   # 为执行器配置与应用不同的port 适用于内网监控. tomcat可以同时监听多个端口
-  server:
-    port: 8081
+#  server:
+#    port: 8081
 # 打开debug模式, 查看自动配置类失效原因
 debug: true
