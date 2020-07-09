@@ -28,6 +28,11 @@ hs_err_pid*
 *.iml
 *.iws
 
+# 监控文件
+*.pid
+*.port
+# uml图
+*.uml
 # eclipse ignore
 .settings/
 .project
