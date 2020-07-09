@@ -1,0 +1,3 @@
+# TODO 对称加密禁止在生产环境下放入配置文件, 安全性很低. 可以使用-Dencrypt.key=atguigu启动
+#encrypt:
+##  key: atguigu

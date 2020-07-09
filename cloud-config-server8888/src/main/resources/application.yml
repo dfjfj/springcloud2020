@@ -2,11 +2,12 @@ server:
   port: 8888
 
 spring:
-  rabbitmq:
-    host: 192.168.175.200
-    port: 5673
-    username: guest
-    password: guest
+  # TODO 使用bus注意打开此配置
+#  rabbitmq:
+#    host: 192.168.175.200
+#    port: 5673
+#    username: guest
+#    password: guest
   # 在这里启用jdbc后端存储
   profiles:
     active: jdbc
@@ -45,3 +46,4 @@ management:
       exposure:
         include: "*"
 debug: true
+# 设置加密解析key, 建议在发送给客户端之前解密. 这样密钥可以只保留一份,放入config-server

@@ -57,7 +57,7 @@ logging:
     org:
       springframework:
         cloud:
-          gateway: debug
+          gateway: info
 debug: false
 
 eureka:
