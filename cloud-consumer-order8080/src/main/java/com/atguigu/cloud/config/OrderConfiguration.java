@@ -5,7 +5,9 @@ import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
+import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.client.loadbalancer.reactive.ReactorLoadBalancerExchangeFilterFunction;
 import org.springframework.context.annotation.Bean;
@@ -52,5 +54,13 @@ public class OrderConfiguration {
     @Bean
     public HttpTraceRepository httpTraceRepository() {
         return new InMemoryHttpTraceRepository();
+    }
+
+    @Bean
+    public CacheManagerCustomizer<CaffeineCacheManager> orderCacheManagerCustomizer() {
+        return cacheManager -> {
+            // 不允许存入空值
+          cacheManager.setAllowNullValues(false);
+        };
     }
 }

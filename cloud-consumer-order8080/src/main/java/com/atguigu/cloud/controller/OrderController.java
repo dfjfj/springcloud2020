@@ -6,6 +6,7 @@ import com.atguigu.cloud.api.dto.PaymentDTO;
 import com.atguigu.cloud.common.Response;
 import com.atguigu.cloud.controller.vo.PaymentVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
@@ -66,6 +67,8 @@ public class OrderController {
         return Response.success(instances);
     }
 
+    // 测试标注于controller层的缓存注解(该层注册将不会和service层共享缓存)
+    @Cacheable(cacheNames = {"paymentInfo"})
     @GetMapping("/{id}")
     public Response<PaymentVO> getPaymentInfo(@PathVariable("id") Long id) {
         return webClient.get().uri("/{id}", id)

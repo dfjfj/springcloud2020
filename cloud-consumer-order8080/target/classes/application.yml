@@ -20,6 +20,10 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+  cache:
+    type: caffeine
+    caffeine:
+      spec: initialCapacity=16,maximumSize=300,expireAfterAccess=5m
 eureka:
   instance:
     prefer-ip-address: true
