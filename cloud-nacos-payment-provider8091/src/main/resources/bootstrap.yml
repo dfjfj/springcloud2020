@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: payment-provider
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      config:
+        file-extension: yaml
+
+# 远程配置的优先级高于本地配置, 因此启动端口是8092
+# PropertySourceBootstrapConfiguration

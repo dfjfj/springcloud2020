@@ -1,0 +1,79 @@
+# TODO 未实现的功能: 服务降级配置(可以搞定)
+# TODO 使用动态数据源且sentinel和nacos可以互相通信后, 簇点链路中设置流控规则还需要自己开发.
+# TODO 还未测试和gateway的整合.
+# TODO 全局设置blockHandler, fallback(即默认处理)还未测试.
+server:
+  port: 8081
+
+spring:
+  application:
+    name: order-consumer
+  cloud:
+    inetutils:
+      timeout-seconds: 10
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr}
+    sentinel:
+      transport:
+        # 指定和sentinel dashboard交互的端口, 限流规则将会通过该端口互相传输
+        # 这样可以不占用服务主端口, 作为一个新的进程使用.
+        port: 8718
+        # 指明sentinel dashboard的ip和端口
+        dashboard: localhost:8099
+      log:
+        switch-pid: true
+      datasource:
+        ds1:
+          nacos:
+            server-addr: ${spring.cloud.nacos.server-addr}
+            data-id: ${spring.application.name}-flow-rules
+            group-id: SENTINEL_GROUP
+            data-type: json
+            rule-type: flow
+    # 配置seata事务群组, my_test_tx_group为默认值. 该值必须和server端一致. 用法类似于server端的服务名称.
+    alibaba:
+      seata:
+        tx-service-group: my_test_tx_group
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf-8&useSSL=false&useUnicode=true&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    # Hikari是Spring Boot 2.0之后默认整合的数据库连接池，比druid更快的数据库连接池
+    hikari:
+      connection-test-query: SELECT 'x'
+      pool-name: payment-hikari-pool
+      connection-timeout: 5000
+      minimum-idle: 20
+      idle-timeout: 50000
+      max-lifetime: 540000
+      initialization-fail-timeout: 10000
+      maximum-pool-size: 50
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  file:
+    clean-history-on-start: true
+  level:
+    root: info
+# TODO 启用sentinel对openFeign的支持.
+feign:
+  sentinel:
+    enabled: true
+mybatis-plus:
+  global-config:
+    banner: false
+  configuration:
+    cache-enabled: true
+    map-underscore-to-camel-case: true
+    # 微服务架构中需要关闭一级缓存
+    localCacheScope: STATEMENT
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.atguigu.cloud.entity

@@ -22,7 +22,7 @@ spring:
         enabled: false
   # spring boot 整合caffeine本地缓存
   cache:
-    type: no
+    type: none
     caffeine:
       spec: initialCapacity=16,maximumSize=64,expireAfterAccess=5m
 eureka:

@@ -1,0 +1,22 @@
+server:
+  port: 8093
+
+spring:
+  # 注意: dataId: payment-provider-dev.yaml 完整名字,  后缀必须是yaml
+  # 激活的环境可以写在bootstrap.yml, 也可以在application.yml, 都可以正确拉取对应的远程配置文件
+  # nacos会监听和此工程有关的所有配置文件, 例如: payment-provider.yaml和payment-provider-dev.yaml,任何一个文件有改动它都会在控制台打印出来,其他工程的不会
+  profiles:
+    active: dev
+  cloud:
+    inetutils:
+      # 设置读取网卡信息时间 默认1秒太短
+      timeout-seconds: 10
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

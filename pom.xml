@@ -17,6 +17,8 @@
         <module>cloud-gateway-service9527</module>
         <module>cloud-gateway-service9528</module>
         <module>cloud-config-server8888</module>
+        <module>cloud-nacos-payment-provider8091</module>
+        <module>cloud-nacos-order-consumer8081</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -52,7 +54,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2.1.0.RELEASE</version>
+                <version>2.2.1.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
