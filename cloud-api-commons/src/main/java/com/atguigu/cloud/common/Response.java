@@ -1,9 +1,7 @@
 package com.atguigu.cloud.common;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * code: 响应状态码
@@ -17,8 +15,6 @@ import lombok.NoArgsConstructor;
  */
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public final class Response<T> {
 
     private int code;
@@ -28,6 +24,13 @@ public final class Response<T> {
     private String message;
 
     private T data;
+
+    public Response(int code, int stateCode, String message, T data) {
+        this.code = code;
+        this.stateCode = stateCode;
+        this.message = message;
+        this.data = data;
+    }
 
     public Response(int code, int stateCode, String message) {
         this(code, stateCode, message, null);
