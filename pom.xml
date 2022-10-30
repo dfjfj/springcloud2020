@@ -30,7 +30,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>4.13.1</junit.version>
         <lombok.version>1.18.12</lombok.version>
-        <mysql.version>8.0.16</mysql.version>
+        <mysql.version>8.0.30</mysql.version>
         <fastjson.version>1.2.83</fastjson.version>
         <mybatis-plus.spring.boot.version>3.3.2</mybatis-plus.spring.boot.version>
     </properties>
