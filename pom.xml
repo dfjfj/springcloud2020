@@ -7,6 +7,8 @@
     <groupId>com.atguigu.springcloud</groupId>
     <artifactId>springcloud2020</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
     <modules>
         <module>cloud-provider-payment8001</module>
         <module>cloud-consumer-order8080</module>
@@ -20,7 +22,6 @@
         <module>cloud-nacos-payment-provider8091</module>
         <module>cloud-nacos-order-consumer8081</module>
     </modules>
-    <packaging>pom</packaging>
 
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -95,6 +96,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.10.RELEASE</version>
                 <configuration>
                     <fork>true</fork>
                     <addResources>true</addResources>
