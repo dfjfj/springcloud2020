@@ -34,7 +34,7 @@ mybatis-plus:
   global-config:
     banner: false
   configuration:
-    cache-enabled: true
+    cache-enabled: false
     map-underscore-to-camel-case: true
     # 微服务架构中需要关闭一级缓存
     localCacheScope: STATEMENT
