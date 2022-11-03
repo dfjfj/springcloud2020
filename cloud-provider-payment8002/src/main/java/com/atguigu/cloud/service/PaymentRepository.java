@@ -1,10 +1,10 @@
 package com.atguigu.cloud.service;
 
-import com.atguigu.cloud.dao.entity.PaymentDO;
+import com.atguigu.cloud.api.dto.PaymentDTO;
 
 public interface PaymentRepository {
 
-    int insert(PaymentDO paymentDO);
+    int insert(PaymentDTO paymentDTO);
 
-    PaymentDO getById(long id);
+    PaymentDTO getById(long id);
 }
