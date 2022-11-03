@@ -1,7 +1,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.atguigu.cloud.config.DiscoverClientMonitorAutoConfiguration
 
-### ½ø³Ì¼à¿Ø
+### è¿›ç¨‹ç›‘æŽ§
 org.springframework.context.ApplicationListener=\
 org.springframework.boot.context.ApplicationPidFileWriter,\
 org.springframework.boot.web.context.WebServerPortFileWriter
